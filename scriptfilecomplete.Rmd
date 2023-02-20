@@ -1,0 +1,1811 @@
+---
+title: "rscript"
+author: "Anjali kamble"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r }
+cos(x)
+sin(x)
+tan(x)
+acos(x)
+asin(x)
+atan(x): 
+
+
+# Rules for arithmetic Operations ;
+
+# Arithmetic Operators : + - * / ^
+
+#BEDMAS  
+
+# 1+2*3 = ?
+# (1+2)*3 = ?
+# 7*6/2
+10^2
+
+#  "Hello"
+
+#_________________________________________
+
+# Assignment statement in R
+
+# Variables (objects) in R : 
+#Data type: numerical (numeric, integer), character (factor, character), complex, logocal
+
+
+# assignment of object
+
+a=2
+class(a)
+
+a=2L
+class(a)
+
+a=2.3
+class(a)
+
+a="SDP"
+class(a)
+
+a=TRUE
+class(a)
+
+a=2+3i
+a
+class(a)
+
+# is.datatype(variable)
+is.numeric(a)
+class(is.numeric(a))
+is.character(a)
+is.logical(a)  
+is.complex(a)
+
+a=as.character(2)
+a
+class(a)
+
+# operators in R
+
+#R Arithmetic Operators
+#These operators are used to carry out mathematical operations like addition and multiplication. 
+#Here is a list of arithmetic operators available in R.
+Operator	Description
++	Addition
+�	Subtraction
+*	Multiplication
+/	Division
+^	Exponent
+%%	Modulus (Remainder from division)
+%/%	Integer Division
+
+a=10
+b=2
+a^2
+a%%3
+a%/%3
+
+
+# Relational Operators
+Relational operators are used to compare between values. Here is a list of relational operators available in R.
+# relational and logical operators 
+
+perator	Description
+<	Less than
+>	Greater than
+<=	Less than or equal to
+>=	Greater than or equal to
+==	Equal to
+!=	Not equal to
+
+
+X=10
+
+X<100
+
+X<=10
+X>=10
+
+X!=10
+
+
+#Logical Operators
+Logical operators are used to carry out Boolean operations like AND, OR etc.
+
+Operator	Description
+!	Logical NOT
+&	Element-wise logical AND
+&&	Logical AND
+|	Element-wise logical OR
+||	Logical OR
+
+X=10
+
+X<100 && X>5
+
+X<100 & X>5
+
+X<5 || X>8
+
+
+
+
+#Data form: vector, data frame, matrix, list
+
+# Vector
+#The most basic object is a vector
+
+# Assignment of multiple values to a single variable 
+# Empty vectors can be created with the vector() function.
+# A vector can only contain objects of the same class
+# BUT: The one exception is a list, which is represented as a vector but can contain objects of
+# different classes (indeed, that�s usually why we use them)
+# Use of c() function. c stands for combine 
+
+a=c(10,20,30)
+b=c("M","F","F")
+class(a)
+class(b)
+
+# Reading data from keyboard (not from another data file!)
+# reading numbers numbers
+
+x=scan()
+x=scan(what=character())  ## Entering Text as Data
+x=scan(what="character")  
+x=scan(what='character')  
+
+x=scan(what=complex())  ## for character
+
+
+x=scan(sep=",")
+
+
+x<-c(1,2,3,4,5,6,7,8,9)
+edit(x)
+y<-edit(x)
+y
+
+# 
+x[1]
+x[9]=90
+x
+
+x[2]
+x[-2]
+x[2:5]
+x[c(1,3,5)]
+x[seq(1,6,2)]
+
+x
+x<5
+
+x>=7
+
+x
+x<5
+x[x<5]
+
+which(x==2)
+
+which(x<5)
+
+#############
+y=c(10,5,20)
+which(y==max(y))
+which(y<11)
+#############
+
+
+# built-in  functions (from packages)
+
+# sequence function (seq())
+
+1:10
+seq(1,10)
+seq(1,10,2)
+seq(1,10, by = 2)
+seq(1,10, length=4) # Any application?
+seq(0,1,length=4)
+
+##############
+x=seq(-3,3,length=50)
+y=dnorm(x,0,1)
+plot(x,y,"l")
+##############
+
+# Repeat function  (rep())
+rep(1,5)
+rep(1:4, 2)
+rep(1:4, each = 2)       # not the same.
+rep(1:4, c(3,2,1,2))     # same as second.
+rep(1:4, c(2,1,2,1))
+rep(1:4, each = 3, len = 4)    # first 4 only.
+rep(1:4, each = 2, len = 10)   # 8 integers plus two recycled 1's.
+rep(1:4, each = 2, times = 3)  # length 24, 3 complete replications
+
+#___________________________________________
+
+
+
+
+#### Data Frame #########
+
+#Data frame is an array consisting of columns of various mode(numeric,character etc).
+
+# data.frame : An object to store data in tabular form
+# For example : Suppose there are five variables and 
+# we have 150 observations on each of these five variables. 
+# Then one observation is a vector of length 5.
+# We want to store this data in a single object.
+
+x<- c(1,2,3,4,5)
+y<- c('a', 'b', 'c', 'd', 'e')
+z1<-data.frame(x,y)
+z1
+
+z2<-data.frame(y,x)
+z3<-data.frame("RollNumber"=x, "Grade"=y)
+x 
+y 
+z1
+z2
+z3
+z4<- z3$Grade
+
+x=0:10
+x
+pmf=dbinom(x,10,0.4)
+pmf
+z=data.frame(x,pmf)
+z
+
+z1=data.frame("X"=x,"PMF"=pmf)
+z1
+
+z2=data.frame("X"=x,"PMF"=pmf,row.names=c("a","b","c","d","e","f","g","h","i","j","k"))
+z2
+
+#anather way to creat data frame
+
+zzz=edit(data.frame())
+
+#transform command (adding new variables to existing data frame)
+
+x=runif(5,0,1)
+y=transform(x)
+class(y)
+
+y1=transform(x,x1=x*x)
+y1
+y1=transform(x,x1=x*x,x2=x*x*x)
+y1
+
+x=0:10
+z3=transform(z1,CDF=pbinom(x,10,0.4))
+z3
+
+a=1:6
+b=1:10
+data.frame(a,b)
+
+
+CDF
+
+z3$CDF 
+
+attach(z3) 
+
+
+# data extraction from data frame
+z3[1,3]
+z3[6,1]
+z3[7,]
+z3[,3]
+z3[1:3,3]
+z3[seq(2,11,2),]
+z3[c(1,3,9),]
+z4=z3[,c(1,3)]  # to extract first and third column
+z4
+
+
+z3[,2]
+z3[2,]
+z3[1:5,]
+
+z3
+z3[2:3,2:3]
+
+z3[1,]=c(100,200,300)
+z3
+
+z3<2
+
+x=0:10
+y=0:10
+z=c(0:5,16:20)
+
+x & y
+x && y
+
+x==x & y==y
+
+x==x && y==y
+
+x[x<5]
+
+z5=z4[z4>0.5]
+z5
+
+z5=z4[z4>0.5 & z4<0.7]
+z5
+
+z4[z4>2 & z4<7]
+
+
+z4[z4>0.5 & z4<0.7]
+
+# subset command (to obtain subset of existing data frame
+
+z6=subset(z3,CDF>0.5)
+z6
+
+subset(z3,CDF>0.5 & PMF>0.1)
+
+subset(z3,CDF>0.5 & PMF<0.5 & PMF>0.1 )
+
+## subset with character varible
+iris
+names(iris)
+
+attach(iris)
+transform(iris,"X"=Sepal.Length^2)
+
+sa=subset(iris,Species=="setosa")
+sa
+
+subset(iris,Species=="setosa" & Petal.Length > 0.5)
+
+
+
+iris
+help(iris)
+dimnames(iris)
+#Local variable names to the variable names in the in built dataset.
+v1<-iris$Sepal.Length
+v2<-iris$Sepal.Width
+v3<-iris$Petal.Length
+v4<-iris$Petal.Width
+
+
+###########
+# Matrix
+# matrix creates a matrix from the given set of values.
+# as.matrix attempts to turn its argument into a matrix.
+# is.matrix tests if its argument is a (strict) matrix.
+
+# Syntax: matrix(data = NA, nrow = 1, ncol = 1, byrow = FALSE,dimnames = NULL)
+
+## Conseder two matrices
+
+# a=[ 2 3 8       b=[ 2 3 2   
+#     4 5 3           3 6 3 
+#     6 6 9 ]         1 7 5 ]
+
+# enter two matrices in r
+
+a=matrix(c(2,4,6,3,5,6,8,3,9))
+a
+
+a=matrix(c(2,4,6,3,5,6,8,3,9),nrow=3)
+a
+
+b=matrix(c(2,3,2,3,6,3,1,7,5),nrow=3,byrow=T)
+b
+
+a1=matrix(c("SDP","SDP","SVR","SBM"),nrow=2,byrow=T)
+a1
+
+sum(a1=="SBM")
+sum(a1=="SDP")
+
+a1=matrix(c(2,4,6,3,5,6,8,3),nrow=3)
+a1
+
+#another way
+matrix(c(2,3,8,4,5,3,6,6,9),nrow=3,byrow=TRUE) #entries are row-wise
+
+#add rownames and coloumn names
+aa=matrix(c(2,4,6,3,5,6,8,3,9),nrow=3,dimnames=list(c("r1","r2","r3"),c("c1","c2","c3")))
+aa
+
+a
+b
+
+b[2,3]
+b[2,]
+b[,3]
+b[1:2,2:3]
+b[2,2:3]
+b<5
+b[b<5]
+
+a+b
+a-b
+
+c=a*b  #Element-wise multiplication
+c
+
+d=a%*%b #Matrix multiplication
+d
+
+t(a)
+e=diag(a)#Returns a vector containing the elements of the principal diagonal
+e
+
+x=c(2,4,7)
+f=diag(x) #Creates diagonal matrix with elements of x in the principal diagonal
+f
+
+k=3
+g=diag(k) #If k is a scalar, this creates a k x k identity matrix.
+g
+
+h=solve(a) #Inverse of a if a is a square matrix.
+h
+
+i=eigen(a) # To obtain eigen values and eigen vectors
+i
+i$val #(or eigen(a)$val ) eigen values only
+i1=i$vec #(or eigen(a)$vec ) eigen vector only
+
+j=svd(a) # Single value decomposition of a.
+j
+
+j$u%*%diag(j$d)%*%t(j$v)
+
+k=chol(b) #Choleski factorization of b. Returns the upper triangular factor, such that R'R = b
+k
+
+l=qr(a)  #QR decomposition of a.
+l
+l$rank #(or qr(a)$rank ) rank of matrix a only
+qr(a)$rank
+
+m=cbind(a,b) #Combine matrices(vectors) horizontally. Returns a matrix.
+m
+
+n=rbind(a,b) #Combine matrices(vectors) vertically. Returns a matrix.
+n
+
+o=rowMeans(a) #Returns vector of row means.
+o
+
+p=rowSums(a) #Returns vector of row sums.
+p
+
+q=colMeans(a) #Returns vector of column means.
+q
+
+r=colSums(a) #Returns vector of coumn means.
+r
+
+
+# solve system aX=b  (a is matrix and b is vector)
+# solve(a,b)
+
+solve(a)
+
+b1=c(10,2,30)
+solve(a,b1)
+
+## to solve x+y=2, x-y=0
+a=c(1,1,1,-1)
+b=c(2,0)
+A=matrix(a,byrow=T,nrow=2)
+solve(A,b)
+
+# array
+# Using array command
+b=array(1:10) # one dimensional array is nothing but vector
+b
+
+b=array(c(2,3,1,3,6,7,2,3,9),dim=c(3,3)) # 2 D array is matrix
+b
+
+b1=array(c(2,3,1,3,6,7,2,3),dim=c(2,2,2))
+b1
+b1[,,1]
+
+a2=array(c("SDP","SDP","SVR","SBM"),dim=c(2,2))
+a2
+class(a2)
+
+a2=array(letters[1:8],dim=c(2,2,2))
+a2
+class(a2)
+
+a2[1,1,1]
+
+a2[,,1]
+
+a2=="a"
+
+###########
+
+#Lists:
+#An R list is an object consisting of an ordered collection of objects known as its components.
+#There is no particular need for the components to be of the same mode or type, and, for
+#example, a list could consist of a numeric vector, a logical value, a matrix, a complex vector, a
+#character array, a function, and so on. Here is a simple example of how to make a list:
+
+#Lists are the R objects which contain elements of different types like - numbers, strings, 
+#vectors and another list inside it. A list can also contain a matrix or a function as its elements. 
+#List is created using list() function.
+
+# Create a list containing strings, numbers, vectors and a logical values.
+
+list_data=list("Red", "Green", c(21,32,11), TRUE, 51.23, 119.1)
+print(list_data)
+
+#Naming List Elements
+# Create a list containing a vector, a matrix and a list.
+list_data=list(c("Jan","Feb","Mar"), matrix(c(3,9,5,1,-2,8), nrow = 2),
+               list("green",12.3))
+
+# Give names to the elements in the list.
+names(list_data)=c("1st Quarter", "A_Matrix", "A Inner list")
+# Show the list.
+print(list_data)
+
+
+
+Lst=list(name="Fred", wife="Mary", no.children=3,child.ages=c(4,7,9))
+
+if(0){
+  Components are always numbered and may always be referred to as such. Thus if Lst is
+  the name of a list with four components, these may be individually referred to as Lst[[1]],
+  Lst[[2]], Lst[[3]] and Lst[[4]]. If, further, Lst[[4]] is a vector subscripted array then
+  Lst[[4]][1] is its first entry.
+  If Lst is a list, then the function length(Lst) gives the number of (top level) components
+  it has.
+  Components of lists may also be named, and in this case the component may be referred to
+  either by giving the component name as a character string in place of the number in double
+  square brackets, or, more conveniently, by giving an expression of the form
+  > name$component_name
+  
+  
+  It is very important to distinguish Lst[[1]] from Lst[1]. �[[...]]� is the operator used
+  to select a single element, whereas �[...]� is a general subscripting operator. Thus the former
+  is the first object in the list Lst, and if it is a named list the name is not included. The latter
+  is a sublist of the list Lst consisting of the first entry only. If it is a named list, the names are
+  transferred to the sublist.
+  
+}
+
+
+
+Lst[1]
+Lst[[1]]
+class(Lst[1])
+class(Lst[[1]])
+
+Lst$name
+Lst[["wife"]]
+
+Lst[[4]]
+Lst$child.ages
+Lst[["child.ages"]]
+
+
+Lst[[4]][1]
+Lst$child.ages[1]
+Lst[["child.ages"]][1]
+
+
+#Constructing and modifying lists
+Mat=diag(4)
+Lst[5]=list(matrix=Mat)
+Lst[[5]]=Mat
+
+#Concatenating lists
+list.ABC=c(list.A, list.B, list.C)
+
+#Converting List to Vector
+#A list can be converted to a vector so that the elements of the vector can be used for further 
+#manipulation. All the arithmetic operations on vectors can be applied after the list is 
+#converted into vectors. To do this conversion, we use the unlist() function. It takes the 
+#list as input and produces a vector.
+
+list1=list(1:5)
+v1 =unlist(list1)
+
+## Date values in R
+#Dates are represented as the number of days since 1970-01-01, 
+#with negative values for earlier dates.
+
+# use as.Date( ) to convert strings to dates
+mydates = as.Date(c("2007-06-22", "2004-02-13"))
+
+# number of days between 6/22/07 and 2/13/04
+days = mydates[1] - mydates[2]
+days
+
+Sys.Date( ) 	#returns today's date.
+date() 		#returns the current date and time.
+
+
+#The following symbols can be used with the format( ) function to print dates.
+
+#Symbol	Meaning				Example
+#%d		day as a number (0-31)		01-31
+#%a		abbreviated weekday		Mon
+#%A		unabbreviated weekday		Monday
+#%m		month (00-12)			00-12
+#%b		abbreviated month			Jan
+#%B		unabbreviated month		January
+#%y		2-digit year			07
+#%Y		4-digit year			2007
+
+#%c		Date and time. Locale-specific on output, "%a %b %e %H:%M:%S %Y" on input.
+#%H		Hours as decimal number (00�23). As a special exception strings such as 24:00:00 are accepted for input, since ISO 8601 allows these.
+#%I		Hours as decimal number (01�12).
+#%j		Day of year as decimal number (001�366).
+#%m		Month as decimal number (01�12).
+#%M		Minute as decimal number (00�59).
+#%n		Newline on output, arbitrary whitespace on input.
+#%p		AM/PM indicator in the locale. Used in conjunction with %I and not with %H. An empty string in some locales (for example on some OSes, non-English European locales including Russia). The behaviour is undefined if used for input in such a locale.
+#		Some platforms accept %P for output, which uses a lower-case version (%p may also use lower case): others will output P.
+#%r		For output, the 12-hour clock time
+#%T		Equivalent to %H:%M:%S.
+#%u		Weekday as a decimal number (1�7, Monday is 1).
+
+
+today=Sys.Date()
+today
+format(today, format="%B %d %Y")
+format(today, format="%B-%d-%Y")
+format(today, format="%c")
+
+format(today, format="%d %B  %Y")
+format(today, format="%Y %d %B")
+
+weekdays(today)
+
+#Date Conversion
+#Character to Date
+#You can use the as.Date( ) function to convert character data to dates. 
+#The format is as.Date(x, "format"), where x is the character data and format gives the appropriate format.
+
+# convert date info in format 'mm/dd/yyyy'
+strDates = c("01/05/1965", "08/16/1975")
+dates = as.Date(strDates, "%m/%d/%Y")
+dates
+#The default format is yyyy-mm-dd
+mydates = as.Date(c("2007-06-22", "2004-02-13"))
+
+
+#Date to Character
+#You can convert dates to character data using the as.Character( ) function.
+
+# convert dates to character data
+strDates = as.character(mydates)
+
+Sys.time()
+format(Sys.time(), "%a %b %d %X %Y %Z")
+format(Sys.time(), "%H:%M:%S")
+
+##################
+#string
+#Any value written within a pair of single quote or double quotes in R is 
+#treated as a string. Internally R stores every string within double quotes, 
+#even when you create them with single quote.
+
+x="My name is SDP"
+x
+y="I am working in SUK"
+y
+
+#Concatenating Strings - paste() function
+#Many strings in R are combined using the paste() function. It can take any 
+#number of arguments to be combined together.
+
+c(x,y)
+paste(x,y)
+paste(x,y,sep=". ")
+
+paste(x,y,sep="",collapse="")
+paste(1:4,5:8)
+paste(rep("X",10),1:10,sep="_")
+
+#Counting number of characters in a string - nchar() function
+#This function counts the number of characters including spaces in a string.
+nchar(x) 
+
+#Changing the case - toupper() & tolower() functions
+#These functions change the case of characters of a string.
+
+toupper(x)
+tolower(x)
+
+#Extracting parts of a string - substring() function
+#This function extracts parts of a String.
+#substring(x,first,last)
+
+x
+substring(x,2,7)
+substr(x,2,7)
+
+#There�s also the function chartr() which stands for character translation. chartr() takes
+#three arguments: an old string, a new string, and a character vector x:
+#chartr(old, new, x)
+#It is important to note that old and new must have the same number of characters
+
+chartr("i","I",x)
+
+#### Missing data in R
+Missing Data
+In R, missing values are represented by the symbol NA (not available). 
+#Impossible values (e.g., dividing by zero) are represented by the symbol 
+#NaN (not a number). 
+
+#Testing for Missing Values
+
+y=c(1,2,3,NA)
+is.na(y) # returns a vector (F F F T)
+
+# recode 99 to missing for variable v1
+# select rows where v1 is 99 and recode column v1
+mydata$v1[mydata$v1==99] = NA
+
+#Excluding Missing Values from Analyses
+x=c(1,2,NA,3)
+mean(x) # returns NA
+mean(x, na.rm=TRUE) # returns 2
+
+#The function complete.cases() returns a logical vector indicating which cases are complete.
+
+# list rows of data that have missing values
+mydata[!complete.cases(mydata),]
+
+#The function na.omit() returns the object with listwise deletion of missing values.
+
+# create new dataset without missing data
+newdata=na.omit(mydata)
+
+
+
+##############
+a=c(20,35,58,98,56,23)
+letters
+b=letters[1:10]
+c=iris
+d=matrix(1:9,nrow=3,byrow=T)
+e=list(1,c(2,3),d)
+e
+
+
+min(a)
+min(b)
+min(c)
+min(c[,1:4])
+min(d)
+min(e)
+
+# max()
+
+range(a)
+
+range(iris)
+range(iris[,1:4])
+
+length(a)
+length(b)
+length(c)
+length(d)
+length(e)
+
+dim(a)
+dim(c)
+dim(d)
+
+sum(a)
+sum(c[,1:4])
+sum(d)
+sum(e)
+
+
+prod(a)
+mean(a)
+var(a)
+sort(a)
+sort(a,decreasing=TRUE)
+summary(a)
+quantile(a, 0.5)
+quantile(a, c(0.25,0.5,0.75))
+
+median(a)
+
+# Getting help
+#help() Brings up a help entry for the specified command.
+help(mean)
+help("mean")
+?mean
+
+help.search("mean")
+??mean
+
+help.start() # Opens the help system in the system default browser
+
+
+# example()
+example(mean)
+
+help.search("G inverse")
+
+# G-inverce of matrix
+z=matrix(c(1,9,7,5,4,6),3,2)
+z
+solve(z)
+
+#Moore-Penrose Generalized Inverse of z. 
+?ginv
+??ginv
+
+require(MASS)
+library(MASS)
+s=ginv(z) #ginv(A) requires loading the MASS package.
+z%*%s%*%z
+
+
+# R-packages:
+#R is built from various modules called packages. Additional
+#packages provide extra commands for specific purposes. These
+#packages are found on the website and can be managed using
+#various commands. In Windows and Macintosh the GUI also has
+#menus that help with package management.
+#As on 09 Sept 2019, the CRAN package repository features 14915 available packages.
+
+find("exp")  #to get package name
+find("mean")
+find("ginv")
+
+search()        # Gives a list of attached packages (see library), and R objects, usually data.frames. 
+installed.packages()
+.packages(TRUE) # Packages that are installed
+library()       # To load an installed package
+
+# Procedure for Installation of the packages 
+# install.packages("abc")
+#install.packages("ddalpha")
+#library(ddalpha)
+require(depth)
+#require(ddalpha)
+# To uninstall package
+detach("package:depth")
+
+# in built data sets
+
+data()
+iris
+help(iris)
+help("AirPassengers")
+
+
+###
+#You can find the default directory by using the getwd() command
+
+getwd()
+
+#You can alter the working directory using the setwd() command:
+setwd('F:/')
+
+#You can look at a directory and see which files/folders are 
+#within it using the dir() or list.files() command:
+dir()
+list.files()
+
+#########
+
+source("........")
+
+sink("D:/sdp.txt",append=TRUE)
+a=1:10
+a
+sink()
+
+########################
+
+
+# pdf,cdf,random sample and quantiles from selected distributions
+
+#beta 			beta 		shape1,shape2, ncp
+#binomial 		binom 	size, prob
+#Cauchy 		cauchy 	location, scale
+#chi-squared 	chisq 	df, ncp
+#exponential 	exp 		rate
+#F 			f 		df1, df2, ncp
+#gamma 		gamma 	shape, scale
+#geometric 		geom 		prob
+#hypergeometric 	hyper 	m, n, k
+#log-normal 		lnorm 	meanlog, sdlog
+#logistic 		logis 	location, scale
+#negative binomial nbinom 	size, prob
+#normal 		norm 		mean, sd
+#Poisson 		pois 		lambda
+#Student�s t 	t 		df,	ncp
+#uniform 		unif 		min, max
+#Weibull 		weibull 	shape, scale
+
+#Prefix the name given here by 
+
+#�d� for the density,
+#�p� for the CDF, 
+#�q� for the quantile function and 
+#�r� for simulation (random deviates).
+
+##########
+dbinom(4,10,0.4)
+pbinom(4,10,0.4)
+1-pbinom(5,10,0.4)
+
+dt(2,3)
+pt(2,3)
+1-pt(2,3)
+qt(.6,3)
+pt(0.2766707,3)
+
+#Example : 
+
+
+a=0
+b=1
+runif(1,a,b)
+ 0.6890526
+dunif(0.5,a,b)
+ 1
+punif(0.5,a,b)
+ 0.5
+qunif(0.5,a,b)
+ 0.5
+runif(5,a,b)
+ 0.4509951 0.5032141 0.8215201 0.5877640 0.7517625
+
+x=rnorm(100,0,1)
+x
+summary(x)
+range(x)
+sort(x) # By default it is in increasing order
+sort(x, decreasing=TRUE)
+quantile(x, 0.5)
+
+
+Let us compute cdf of N(0,1) at given points.
+
+x=seq(-3,3, length=20)
+pdf=dnorm(x,0,1)
+cdf=pnorm(x,0,1)
+z=data.frame(x,pdf,cdf)
+z 
+
+
+############################
+
+objects()  #used to display the names of (most of) the objects which are currently
+           #stored within R. The collection of objects currently stored is called the workspace
+ls()
+
+
+rm(a)
+rm(x,y)
+rm(list=ls())  # to remove all objects in R
+
+
+##### file importing and exporting ##########
+
+#Data import- scan(),read.table() and read.csv() function
+#Data export write.table() and write.csv()
+
+
+
+
+######## attach()-detach()functions####### 
+
+##data importing  http://www.r-bloggers.com/importing-data-into-r-part-two/
+
+### scan function
+
+s1=scan(file="D:/r_Practice/d1_t.txt")
+s1
+
+s1_1=scan(file="D:/r_Practice/d1_1_t.txt",multi.line=TRUE)
+s1_1
+
+### read.table and read.csv function
+
+s3=read.table("D:/r_Practice/d2_t.txt",header=T)
+s3
+
+s2=read.table(file("clipboard"),header=T)
+s2
+
+
+a
+attach(s3)
+a
+rm(a)
+detach(s3)
+
+s4=read.csv("D:/r_Practice/d1_csv.csv",header=T)
+s4
+c
+attach(s4)
+c
+mean(c)
+
+
+#-----------------------------------
+#to read d3_t 
+
+s5=read.table(file.choose(),header=T,sep=";") #This command reads a .txt/.data file but----
+                                              #the file.choose() part opens up an ----
+							    #explorer type window that allows you to---- 
+                                              #select a file from your computer.
+s5
+attach(s5)
+
+# to read d2_csv
+s6=read.csv(file.choose(),header=T)
+s6
+attach(s6)
+
+library(openxlsx)
+
+aass=read.xlsx("D:/r_Practice/student.xlsx")
+aass
+
+###############  Exporting ##################
+
+x=rnorm(50,0,1) #random sample of size 50 from normal(0,1) 
+y=rnorm(50,0,1)
+#export this vector to text file
+write.csv(data.frame(x,y),"D:/r_Practice/e1_t.csv",append = FALSE,row.names=F,quote=FALSE)
+
+y=x<0
+z=data.frame(x,y)
+z
+#export this data frame to text file
+write.table(z,"D:/r_Practice/e1_1_t.txt")
+write.table(z,"D:/r_Practice/e1_1_t.txt",sep=";")
+
+#export iris data to text file
+
+write.table(iris,"D:/r_Practice/e2_t.txt") 
+write.table(iris,"D:/r_Practice/e2_t.txt",quote=FALSE) # with quote 
+write.table(iris,"D:/r_Practice/e2_t.txt",quote=FALSE,row.names=F,col.names=F) #with row.names and col.names
+write.table(iris,"D:/r_Practice/e2_t.txt",quote=FALSE,row.names=F,col.names=T)
+write.table(iris,"D:/r_Practice/e2_t.txt",dec=".",quote=FALSE,append = FALSE,row.names=F,col.names=T,sep="\t") #with append
+
+#export vector x to csv file
+write.csv(x,"D:/r_Practice/e1_csv.csv")
+write.csv(x,"D:/r_Practice/e1_csv.csv",row.names=F)
+
+#export iris data to CSV file
+write.csv(iris,"D:/r_Practice/e2_csv.csv")
+
+##################################
+
+
+############# table command
+
+Roll_Num	dist	gender	grade
+1	Satara	M	A
+2	Satara	F	B
+3	Satara	M	C
+4	Sangli	F	B
+5	Sangli	M	B
+6	Kolhapur	F	A
+7	Kolhapur	F	B
+8	Kolhapur	M	C
+
+x=read.table(file("clipboard"),header=T)
+x
+attach(x)
+
+t1=table(dist)
+t1
+
+t2=table(dist,gender)
+t2
+
+t3=table(dist,gender,grade)
+t3
+
+ftable(t3)
+
+margin.table(t2,1) # dist frequencies (summed over gender)
+margin.table(t2,2) # gender frequencies (summed over dist)
+margin.table(t3,3) # grdae frequencies (summed over dist, gender)
+
+
+
+prop.table(t2)   # cell percentages
+prop.table(t2,1) # row percentages
+prop.table(t2,2) # column percentages
+
+summary(t2)    # chi-square test of indepedence
+chisq.test(t2) # chi-square test of indepedence
+fisher.test(t2)
+ 
+
+###########################
+### Ploting
+
+#Graphical facilities are an important and extremely versatile component of the R environment.
+#It is possible to use the facilities to display a wide variety of statistical graphs and also to build
+#entirely new types of graph.
+
+windows()
+
+dev.new()
+
+
+Sr.No.	B.Sc.Perc.	Entrance	Cat.Merit	University	exser
+1	88.5	54	OBC	SUK	N
+2	93.83	45	OPEN	SUK	N
+3	85.33	52	OPEN	SUK	N
+4	84.67	52	OPEN	SUK	N
+5	85.5	51	OPEN	SUK	N
+6	88.33	48	NT(B)	SUK	N
+7	83.5	52	OBC	SUK	N
+8	87	47	OBC	SUK	N
+9	82.5	49	OBC	SUK	N
+10	80.17	50	OPEN	SUK	N
+11	77.83	51	OPEN	SUK	N
+12	71.5	54	OPEN	SUK	N
+13	73	51	OBC	SUK	N
+14	85	39	OPEN	SUK	Y
+15	84.83	35	OPEN	SUK	N
+16	75.83	40	OPEN	SUK	N
+17	79.83	36	OPEN	SUK	N
+18	70	42	OPEN	SUK	N
+19	78.17	32	VJ(A)	SUK	N
+20	67	42	OPEN	SUK	Y
+21	72.83	36	OPEN	SUK	N
+22	84.17	24	OPEN	SUK	N
+23	77.17	28	OPEN	SUK	N
+24	75.17	29	OBC	SUK	N
+25	69.67	32	OBC	SUK	N
+26	68.5	28	VJ(A)	SUK	N
+27	66	28	OPEN	SUK	N
+28	52.33	36	OPEN	SUK	N
+29	0	34	SC	SUK	N
+30	0	30	OPEN	SUK	N
+31	0	28	SC	SUK	N
+32	0	44	OPEN	Other	N
+33	0	31	OPEN	Other	N
+34	0	29	OPEN	Other	N
+35	0	28	OPEN	Other	N
+
+#copy above data set and run following command
+
+student=read.table(file("clipboard"),header=TRUE)
+
+attach(student)
+
+plot(B.Sc.Perc.,Entrance) # If x and y are vectors, plot(x, y) produces a scatterplot of y against x. The
+plot(B.Sc.Perc.,Entrance,col="RED",pch=3)
+
+plot(Entrance) #plot(x) If x is a time series, this produces a time-series plot.
+
+plot(University)
+
+plot(University,Entrance)
+
+boxplot(Entrance)
+
+
+plot(student)
+plot(iris[,1:4])
+
+plot(~Sr.No.+B.Sc.Perc.+Entrance)
+
+iris
+attach(iris)
+pairs(iris)
+
+plot(iris)
+plot(~Sepal.Length+Sepal.Width+Petal.Length+Petal.Width)
+
+coplot(B.Sc.Perc.~Entrance|University)
+
+coplot(B.Sc.Perc.~Entrance|University+Cat.Merit)
+
+coplot(Sepal.Length~Sepal.Width|Species)
+
+coplot(Sepal.Length~Sepal.Width|Petal.Length)
+
+qqnorm(Sepal.Length)
+qqline(Sepal.Length)
+
+x=rnorm(1000,0,1)
+qqnorm(x)
+
+x=rexp(1000,1)
+qqnorm(x)
+
+
+
+qqplot(Sepal.Length,Petal.Length)
+
+qqplot(Sepal.Length[1:50],Sepal.Length[51:100])
+
+qqplot(rnorm(100,0,1),rnorm(200,0,1))
+abline(0,1)
+
+qqplot(rnorm(100,0,1),rexp(200,1))
+
+hist(Sepal.Length)
+
+hist(Sepal.Length, nclass=4)
+
+b=c(3,4.5,6,7.5,9,10.5)
+
+hist(Sepal.Length, breaks=b)
+hist(Sepal.Length, breaks=b,labels=TRUE,col=2,border=3)
+
+hist(Sepal.Length, breaks=b,probability=TRUE)
+
+
+x=20:11
+
+dotchart(x)
+
+y=1:5
+dotchart(y)
+
+dotchart(Sepal.Length)
+
+
+hist(Sepal.Length,axes=FALSE)
+
+plot(B.Sc.Perc.,Entrance,type="b") # l p b o h s n
+
+plot(B.Sc.Perc.,type="l") # l p b o h s n
+
+plot(B.Sc.Perc.,Entrance,pch=13) # 
+
+plot(Sepal.Length,Petal.Length,col=rep(c(1,2,3),each=50),pch=rep(c(1,2,3),each=50))
+#legend(locator(1),legend=c("Setosa","Versicolr","Verginica"),pch=1:3,col=1:3)
+legend(6,4,legend=c("Setosa","Versicolr","Verginica"),pch=1:3,col=1:3)
+
+
+x=1:10
+y=x+runif(10,0,1)
+plot(x,y)
+plot(x,y,type="h")
+
+x=0:10
+pmf=dbinom(x,10,0.5)
+plot(x,pmf,type="h",main="PMF of B(10,0.5)",ylim=c(0,0.4))
+plot(x,cumsum(pmf),type="s")
+
+plot(B.Sc.Perc.,Entrance,type="p",col=2,pch=18,cex = 1) 
+
+plot(B.Sc.Perc.,Entrance,type="p")
+
+points(c(40,50),c(40,50),col="RED",pch=10,cex=10)
+
+x=1:5
+y=2:6
+z=c("a","b","c","d","e")
+
+plot(x,y,type="n");text(x,y,z)
+plot(x,y);text(x,y,z)
+
+xx1=c(10,15,20)
+xx2=c(40,35,50)
+xx3=c("abc","xyz","pqr")
+
+plot(xx1,xx2,type="n",xlim=c(6,25),ylim=c(30,55))
+text(xx1,xx2,xx3)
+
+plot(B.Sc.Perc.,Entrance,type="p")
+
+abline(0, 1) #abline(int, slope)
+
+qqnorm(rnorm(100,0,1))
+abline(-1, 1)
+
+text(locator(1), "Outlier")
+
+
+plot(B.Sc.Perc.,Entrance,type="p")
+
+
+plot(Sepal.Length,Sepal.Width)
+
+lines(Petal.Length,Petal.Width,type="p",col="RED",pch=2)
+
+split.screen(c(2,2))
+screen(1)
+plot(1:10,1:10)
+
+screen(2)
+plot(21:30,31:40)
+
+screen(3)
+plot(21:30,30:21)
+
+screen(4)
+plot(21:30,30:21)
+
+boxplot(Entrance)
+
+par(mar=c(5,0,0,0))
+
+
+# 4 figures arranged in 2 rows and 2 columns
+attach(mtcars)
+par(mfrow=c(2,2))
+plot(wt,mpg, main="Scatterplot of wt vs. mpg")
+plot(wt,disp, main="Scatterplot of wt vs disp")
+hist(wt, main="Histogram of wt")
+boxplot(wt, main="Boxplot of wt")
+
+
+# 3 figures arranged in 3 rows and 1 column
+attach(mtcars)
+par(mfrow=c(3,1)) 
+hist(wt)
+hist(mpg)
+hist(disp)
+
+# One figure in row 1 and two figures in row 2
+attach(mtcars)
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE))
+hist(wt)
+hist(mpg)
+hist(disp)
+
+
+
+## 3D plots
+## package: plot3D
+install.packages("plot3D")
+
+require(plot3D)
+
+x=rnorm(100,0,1)
+y=rnorm(100,0,1)
+z=rnorm(100,0,1)
+scatter3D(x,y,z)
+scatter3D(x,y,z,pch=3)
+
+install.packages("rgl")
+require(rgl)
+plot3d(x,y,z)
+
+###https://www.r-bloggers.com/generating-and-visualizing-multivariate-data-with-r/
+install.packages(mvtnorm) #Multivariate Normal Density and Random Deviates
+
+
+
+
+
+#################################
+#### Correlation ans Linear Regression : cor() and lm() command
+
+
+FY=runif(10,45,80)
+SY=runif(10,55,90)
+TY=runif(10,60,95)
+
+cov(FY,TY)
+cor(FY,TY)
+cor(FY,TY,method="spearman")
+
+cov(data.frame(FY, SY, TY))
+cor(data.frame(FY, SY, TY))
+
+cor(iris)
+cor(iris[,1:4])
+
+plot(TY,SY)
+a=lm(TY~SY) #lm is used to fit linear models.
+a
+
+class(a)
+
+b=lm(TY~SY+FY)
+b
+
+summary(b)
+
+plot(b)
+
+#An object of class "lm" is a list containing at least the following components:
+b$coefficients   #a named vector of coefficients
+b$residuals      #the residuals, that is response minus fitted values.
+b$fitted.values  #the fitted mean values.
+b$rank           #the numeric rank of the fitted linear model.
+b$df.residual    #the residual degrees of freedom.
+
+
+
+###### t test #######
+x=rnorm(10,10,1)
+y=rnorm(10,10,1)
+
+t1=t.test(x,mu=10,conf.level=0.90,alternative="two.sided")
+t1
+class(t1)
+
+t1$statistic
+t1$parameter
+t1$p.value
+t1$method
+t1$conf.int
+
+t2=t.test(x,y,alternative="greater")
+t2
+
+t.test(x,y,mu=5,paired=TRUE,alternative="two.sided")
+
+xy=c(x,y)
+xy1=c(rep(0,10),rep(1,10))
+
+t.test(xy~xy1,mu=5,paired=TRUE,alternative="two.sided")
+
+##### prop.test########
+suc=140
+n=200
+prop.test(suc,n,p=0.6)
+
+smokers=c(83, 90)
+patients=c(100, 100)
+prop.test(smokers, patients)
+
+###### wilcox.test######
+nt1=wilcox.test(x,mu=10,conf.level=0.90,alternative="two.sided",conf.int=TRUE)
+nt1
+nt1$statistic
+nt1$p.value
+
+wilcox.test(x,y)
+
+
+##### ks.test ######
+ks.test(xy,"pnorm")
+
+ks.test(xy,"pnorm",mean=10,sd = 1)
+
+ks.test(xy,"pnorm",mean=mean(xy),sd = sqrt(var(xy)))
+
+ks.test(xy,"pexp",10)
+
+ks.test(x,y)
+
+#####shapiro.test n######
+shapiro.test(xy)
+
+var.test(x,y)
+
+###### chisq.test ######
+t=matrix(c(10,4,6,12),byrow=T,nrow=2)
+chisq.test(t)
+
+
+
+#### ANOVA one way
+x1=rnorm(10,0,1)
+x2=rnorm(10,0,1)
+
+d=stack(list(b1=x1,b2=x2))
+names(d)
+oneway.test(values~ind, data=d, var.equal=T) #using oneway.test()
+a1=aov(values~ind, data=d) # using command aov
+summary(a1)
+
+a=aov(iris[,1]~iris[,5])
+a
+summary(a)
+##### ANOVA (Two way classification with one observation per cell
+#Season\ salesman  A    B    C    D
+# summer  		36    36   21   35
+# Winter          28    29   31   32 
+# Monsoon   	26	28   29   29
+# Do the salesmen significantly differ in performance?
+# Is there any significant difference between seasons?
+
+
+s1=c(rep(1:3,rep(4,3)))
+s2=rep(c("A","B","C","D"),3)
+obs=c(36,36,21,35,28,29,31,32,26,28,29,29)
+d=data.frame(s1,s2,obs)
+attach(d)
+seasons=factor(s1)
+salesmen=factor(s2)
+
+av2=aov(obs~seasons+salesmen)
+summary(av2)
+
+####
+###### apply family of functions #####
+
+#tapply splits the array based on specified data, usually factor levels and then applies the function to it.
+x=c(rep("a",5),rep("b",5))
+y=1:10
+tapply(y,x,mean)
+tapply(y,x,var)
+
+#apply( ) can be used to apply a function to a matrix.
+a=matrix(c(2,4,6,3,5,6,8,3,9),nrow=3)
+a
+
+apply(a,1,sum)
+apply(a,2,sum)
+apply(a,c(1,2),sum)
+
+apply(a, 2, function(x) length(x[x<3]))
+
+sapply(1:3, function(x) x^2)
+
+lapply is very similar, however it will return a list rather than a vector:
+lapply(1:3, function(x) x^2)
+
+#lapply is similar to apply, but it takes a list as an input, and returns a list as the output.
+
+data = list(x = 1:5, y = 6:10, z = 11:15)
+data
+lapply(data, FUN = median)
+
+#sapply is the same as lapply, but returns a vector instead of a list
+sapply(data, FUN = median)
+
+#mapply is a multivariate version of sapply. 
+#It will apply the specified function to the first element of each argument first, 
+#followed by the second element, and so on.
+x =1:5
+b = 6:10
+mapply(sum, x, b)
+
+
+
+#####Grouping, loops and conditional execution
+
+# Control statements :
+    - Conditional execution: if statements (if, ifelse)
+    - Repetitive execution: for loops, repeat and wh 
+
+##### if condition ######
+
+> if (expr_1) expr_2 else expr_3
+where expr 1 must evaluate to a single logical value and the result of the entire expression is
+then evident.
+
+a=10;
+b=15;
+if(a<11){c=1}else{c=0}
+c
+
+if(a<11 && b>14 || (a+b)<10 ){c=1}else{c=0}
+
+##There is a vectorized version of the if/else construct, the ifelse function. This has the
+#form ifelse(condition, a, b) and returns a vector of the length of its longest argument, with
+#elements a[i] if condition[i] is true, otherwise b[i].
+
+ifelse(a<11,0,1)
+a
+b
+x=c(0,0);
+y=c(1,1);
+ifelse(c(a<11,b<10),x,y)
+
+############ for ############
+#There is also a for loop construction which has the form
+ #> for (name in expr_1) expr_2
+#where name is the loop variable. expr 1 is a vector expression, (often a sequence like 1:20), and
+#expr 2 is often a grouped expression with its sub-expressions written in terms of the dummy
+#name. expr 2 is repeatedly evaluated as name ranges through the values in the vector result of
+#expr 1.
+
+for( i in 1:10)
+print(i)
+
+for( i in 1:10){
+print(c(i,i^2))
+}
+
+for( i in c(7,1,5)){
+print(c(i,i^2))
+}
+
+for( i in 10:1)
+print(i)
+
+for( i in seq(1,10,2))
+print(i)
+
+for( j in 1:4)
+for( i in 1:3)
+{
+ print(c(i,j))
+}
+
+for( j in 1:2)
+for( i in 1:10)
+{
+ print(i)
+ if(i==6) break
+}
+
+x=numeric()
+for(i in 1:5)
+{
+x[i]=i*i
+}
+x
+mean(x)
+
+A=matrix(rep(0,100),nrow=10)
+
+for( i in 1:10)
+ for( j in 1:10) 
+  {
+    x=rnorm(1,i*j,1)
+    #x=i*j
+    A[i,j]=x
+ }
+
+############ repeat and break ######
+
+i=1
+repeat 
+{
+print(c(i,i*i))
+i=i+1
+}
+
+i=1
+repeat 
+{
+print(i)
+i=i+1
+if(i==10){break}
+}
+
+########### while ########
+i=1
+while(i<11)
+{
+print(i)
+i=i+1
+}
+
+
+i=1;j=1
+while(i<10 && j<5)
+{
+print(c(i,j))
+i=i+1;
+j=j+1;
+}
+
+###### to find mean and variance of given vector #######
+sum=0;
+sumsq=0
+x=c(1,2,3)
+n=length(x)
+for(i in 1:n)
+{
+
+ sum=sum+x[i];
+ sumsq=sumsq+x[i]*x[i] 
+}
+m=sum/n
+m
+var=sumsq/n-m^2
+var
+mean(x)
+((n-1)/n)*var(x)
+
+a=matrix(rep(0,50),nrow=5)
+for(i in 1:5)
+for(j in 1:10)
+{
+ x=rnorm(1,i,1)
+ a[i,j]=x
+}
+
+a=matrix(rep(0,50),nrow=5)
+
+for(i in 1:5)
+ a[i,]=rnorm(10,i,1)
+
+x={}
+for(i in 1:1000)
+ x[i]=mean(rpois(500,1))
+hist(x)
+
+######## self defined function ##########
+### to find factorial of given number
+fact=function(x){
+   t=1;
+   for( i in 1:x)
+   {
+     t=t*i;
+   }
+  return(t)
+}
+
+fact(5)      #userdefined function
+factorial(5) # built in function
+nck=fact(10)/(fact(2)*fact(8))
+npk=fact(10)/fact(8)
+choose(10,2)#function
+
+nck=function(n,k)
+{
+ return(fact(n)/(fact(k)*fact(n-k)))
+}
+
+
+x=1:100
+y={}
+for(i in 1:length(x))
+if(x[i]<35) y[i]="Fail" 
+else if(x[i]<60)
+{
+y[i]="PassClass"} else{
+y[i]="FirstClass"
+}
+y
+
+
+set.seed(5)
+N = 12
+x = rpois(N, rpois(N, 1.5))
+x
+
+# Space separator
+cat(x)
+
+# Multi-space separator
+cat(x, sep=" . ")
+
+# Tab separator
+cat(x, sep="\t")
+
+# Line Break separator
+cat(x, sep="\n")
+
+y = sample(c("home", "away"), N, TRUE)
+y
+
+
+#sample(1:45,5,FALSE)
+#x=0:3
+#p=c(0.5,.1,.1,.3)
+#sample(x,2,FALSE,p)
+
+
+cat(x, y)
+
+cat(x[1], y[1], sep="\t")
+
+#===> Practice Run For Writing File <===#
+for(i in 1:3){
+  cat(x[i], y[i], sep="\t")
+  cat("\n")
+}
+
+#===> Could Append To Existing File <===#
+for(i in 1:N){
+  cat(x[i], y[i], file="data1.txt", sep="\t", append=TRUE)
+  cat("\n", file="data1.txt", append=TRUE)
+}
+
+```
