@@ -1,0 +1,258 @@
+---
+title: "newscript"
+author: "Anjali kamble"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r}
+id=c(seq(1:7))
+weight=c(22,66,44,55,22,44,22)
+smoking=c("yes","yes","no","yes","no","no","yes")
+tumor=c("small","small","large","small","large","small","mod")
+mydata=data.frame(id,weight,smoking,tumor)
+head(mydata)
+tail(mydata)
+names(mydata)
+names(mydata)[3]='gender'
+edit
+n=mydata[order(weight),];n
+n=mydata[order(-weight),];n
+mer=merge(mydata,n,by='id');mer
+t(mydata)#transpose
+split(mydata,tumor)
+
+attach(mtcars)
+ag=aggregate(mtcars,by=list(am,vs),FUN=mean);ag
+transform(mydata,weight=2.5*weight)
+femdata=mydata[tumor=='small',];femdata
+m=mydata[tumor=='small'&weight>=55,];m
+mean(weight[tumor=='small'])
+
+chol=c(15,18,34,22,22,33,76)
+plot(weight,chol,main="weight vs cholestrol",xlab="weight",ylab="cholestrol",col="red",las=3)#orientation of x and y axis numbers
+text(weight,chol,cex=0.6,pos=4,col="red")
+text(weight,chol,tumor,cex=1,pos=4,col="blue")
+income=c(12000,34000,12000,67000,21000,44000,65000)
+text(weight,chol,income,cex=0.9,pos=3,col="black")
+mtext("effect ofweight on cholestrol",side=4,line=1,col=2)#size 1,2,3,4
+text(x=60,y=35,label="r=0.36998")
+
+plot(weight,chol,main="w vs chol",xlab="weight",ylab="chol",col="blue",las=1,col.main=2,font.main=3,col.axis=4,col.lab=3)
+par(bg="yellow")
+
+points(chol[gender=="yes"]~weight[gender=="yes"],pch=16)
+abline(lm(chol[gender=="no"]~weight[gender=="no"]),col=3)
+legend(60,60,legend=c("weight"),pch=9)
+
+attach(mydata)
+count=table(smoking);count
+percent=(count/7)*100;percent
+count=table(smoking,gender);count
+barplot(count)
+barplot(count,col=c(2,3),beside=T,density=c(20,30),angle=c(20,30))
+
+barplot(count,main="smoking",xlab="gender",ylab="s",las=1,names.arg=c("no","yes"),legend=rownames(count),space=0.3,col=c("darkblue","red"))
+
+grid()
+pairs(~id+weight)
+pairs(~id+weight+chol+income)
+mosaicplot(count,col=c(2,3))
+attach(mydata)
+pie(count,angle=c(30,60),clockwise=T,border=10,radius=0.8,density=c(30,60))
+library(plotrix)
+pie3D(count,height=0.1,border=3,explode=0.3,shade=1.1)
+pie3D(count,height=0.1,border=3,explode=0.3,shade=1.1,labels=round(count/7,digit=2))
+hist(mpg)
+hist(mpg,freq=1)
+hist(mpg,freq=T)
+hist(mpg[am==0],col=2,freq=T)
+hist(mpg[am==1],col=2,freq=T)
+hist(mpg[vs==1],col=2,freq=T)
+par(mfrow=c(2,2))
+
+par(mfrow=c(2,2))
+plot(id,chol,type="p",main="Type p")
+plot(id,chol,type="l",main="Type l")
+plot(id,chol,type="o",main="Type o")
+plot(id,chol,type="h",main="Type h")
+plot(id,chol,type="b",main="Type b")
+plot(id,chol,type="s",main="Type s")
+library(manipulate)
+manipulate(plot(cars,xlim=c(x.min,x.max),type=plot_type,axes=axes,ann=label),x.min=slider(0,15),x.max=slider(15,30,initial=25),plot_type=picker("p","l","b"),axes=checkbox(TRUE,"Axes"),label=checkbox(TRUE,"Labels"))
+
+boxplot(len~interaction(dose,supp),data=ToothGrowth,main="lengthof tooths",xlab="interaction of dose and supp",ylab="tooth length",horizontal=T,col=c(2,3,4))
+
+attach(ToothGrowth)
+install.packages("ggplot2")
+library(ggplot2)
+ggplot(diamonds)
+ggplot(diamonds)+aes(x=clarity)+geom_bar(fill="red")+theme_minimal()
+
+attach(Orange)
+
+
+library(lattice)
+densityplot(~circumference)
+
+tree.f=factor(Tree,levels=c(1,2,3,4,5),labels=c("ITree","2Tree","3Tree","4Tree","5Tree"))
+densityplot(~circumference|tree.f)
+cloud(age~circumference*Tree|tree.f)
+library(scatterplot3d)
+scatterplot3d(Orange)
+
+attach(CO2)
+hist(uptake)
+densityplot(uptake)
+
+plot(density(uptake))
+qqnorm(uptake)
+qqline(uptake)
+
+qplot(sample=uptake,data=CO2)
+qplot(sample=uptake,data=CO2,colour=factor(Treatment))
+shapiro.test(uptake)
+
+install.packages(nortest)
+library(nortest)
+ad.test(uptake)#anderson darvin test
+attach(iris)
+a=aov(Sepal.Length~Species+Sepal.Width);a
+summary(a)
+TukeyHSD(a)
+plot(TukeyHSD(a))
+t.test(uptake,mu=30)
+t.test(uptake,mu=30,alternative="less",conf.level = 0.95)
+t.test(uptake~Type,mu=0,alternative="two.sided",conf=0.95,paired=F)#independent
+t.test(uptake~Type,mu=0,alternative="two.sided",conf=0.95,paired=F,var.equal=F)
+#dependent
+#beforre and after treatment CO2 conc
+ t.test(uptake~Treatment,mu=0,alternative="two.sided",conf=0.95,paired=T)
+prop.test(550,1000,p=0.55,conf.level=0.99)#ztest for proportionality
+
+prop.test(x=c(32,25),n=c(50,60))#if value of prop is higher is better quality
+interaction.plot(Species,Sepal.Length,Sepal.Width)
+
+exercise=c("s1","s1","s1","s1","s1","s1","s2","s2","s2","s2","s2","s2","s3","s3","s3","s3","s3","s3")
+pulse1=c(112,111,89,95,66,69,125,85,97,93,77,78,81,88,88,58,85,78)
+pulse2=c(112,111,89,95,66,69,125,85,97,93,77,78,81,88,88,58,85,78)
+pulse3=c(112,111,89,95,66,69,125,85,97,93,77,78,81,88,88,58,85,78)
+subject=c("d1","d1","d2","d2","d1","d1","d1","d1","d1","d1","d1","d1","d1","d1",
+          "d2","d2","d2","d2")
+pulse=data.frame(exercise,pulse1,pulse2,pulse3,subject);pulse
+
+#s1 yoga,s2 cycling, s3 playing tennis,d1 veg,d2 non veg
+
+aov(pulse1~exercise+Error(subject/exercise),data=pulse)
+summary(aov(pulse2~exercise+Error(subject/exercise),data=pulse))
+
+a=aov(pulse1~excercise);a
+library(car)
+Anova(a)
+
+y=cbind(pulse1,pulse2)
+y
+model1=manova(y~subject,data=pulse);model1
+#manova independent variables=factor,covariate dependent variables=response,response
+
+model2=manova(y~exercise,data=pulse);model2
+summary.aov(model1)
+summary.aov(model2)#diatary has significant effect on pulse1 and pulse2, exercise has sign on pulse1 and pulse2
+splom(Orange)#scatter plot matrix correlation relationship between age and circumference
+data=mtcars[,3:8];data
+
+library(psych)
+cor.ci(data)
+cor(data)
+cor.test(age,circumference)
+install.packages("corrplot")
+library(corrplot)
+m=cor(mtcars);m
+corrplot(m,method='circle')
+corrplot(m,method='pie')
+corrplot(m,method='square')
+corrplot(m,method='number')
+install.packages("corrgram")
+
+library(corrgram)
+
+par(mfrow=c(1,1))
+corrplot(m,type='upper',order='hclust',col.brewer.pal(n=8,name="PuOr"))
+corrgram(mtcars,type='lower',order=TRUE,lower.panel=panel.shade,upper.panel=panel.pie,text.panel=panel.txt,main="Car Milege")
+library(gvlma)
+attach(mtcars)
+m1=lm(mpg~cyl+carb+am+hp);m1
+library(MASS)
+m2=stepAIC(m1,direction="both");m2
+gvlma(m3)#giving linear model assumptions
+install.packages("stargazer")#to compare two models
+library(stargazer)
+stargazer(m1,m2,type="text",out="table.txt")
+install.packages("jtools")
+install.packages("broom")
+install.packages("ggstance")
+install.packages("broom.mixed")
+library(broom)
+library(ggstance)
+library(broom.mixed)
+library(jtools)
+summ(m2)
+summ(m3,VIF=T)
+plot_coefs(m2)#cyl,hp,wt not significant
+
+library(olsrr)
+ols_regress(mpg~disp+cyl+hp+drat+wt+qsec+carb,data=mtcars)
+#increase in wt milege decrese by 3.87 increase in hp decrease in 0.032 milege
+trees
+#H0:median=70 vs not equal
+attach(trees)
+wilcox.test(Height,alternative="two.sided",mu=70,conf.int=0.95)
+#mann whitney u test H0 n1=n2 vs not equal independent
+attach(mtcars)
+fac=factor(am,labels=c('automatic','manual'));fac
+wilcox.test(mpg~fac,alternative="two.sided",data=mtcars)
+tapply(mpg,fac,mean)
+sleep
+attach(sleep)
+wilcox.test(extra~group,sleep,paired=T)
+wilcox.test(extra[group==1],extra[group==2],paired=T)
+plot(extra~group)
+#kruskal wallis One way independent measures anova
+attach(Orange)
+kruskal.test(circumference,Tree,dataset=Orange)
+f=TukeyHSD(aov(circumference~Tree,dataset=Orange))#is circumference is different in five types of trees
+#accept H0 medianis equal circumference of all trees are same
+plot(f)
+boxplot(circumference~Tree)
+
+#friedman test anova repeated measure
+#H0:All treatment effects are same
+bp=c(112,112,344,222,112,112,344,222)
+treatment=c(1,1,1,2,3,2,1,2)
+patient=c(1,1,1,1,3,3,2,2)
+bloodp=data.frame(bp,treatment,patient);bloodp
+friedman.test(bp~treatment|patient)#no significant effect of treatment on bp when we are blocking the patient
+#two catogorical test chi square association
+attach(esoph)
+#h0:no association between the alcohol consumption and the eosophagus cansor vs there is association
+a=xtabs(ncases~alcgp,esoph);a
+b=xtabs(cbind(ncases,ncontrols)~alcgp,esoph);b
+plot(b,col=4)#mosaic plot
+attach(mtcars)
+t=table(am,vs)#0-v shaped,1-straight, 0-automatic,1- manual
+chisq.test(t)#h0-no significant association between engine type and transmission
+library(gmodels)
+CrossTable(am,vs,chisq=TRUE)#expected frequency goes down 5 we use fisher testS
+
+#clustering
+attach(mtcars)
+m1=apply(mtcars,2,mean);m1
+m2=apply(mtcars,2,sd);m2
+m1
+z=scale(mtcars,m1,m2);z
+d=dist(z);d
+c=hcluster(d)
+plot(c)
+
+```
+
