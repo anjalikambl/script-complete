@@ -1,0 +1,65 @@
+iris
+dimnames(iris)
+type(dimnames)
+class(dimnames(iris))
+dim(iris)
+names(iris)
+cars
+mtcars
+dimnames(cars)
+Trees
+tree
+CO2
+dimnames(CO2)
+frequency(iris)
+table(iris)
+count(iris)
+attach(iris)
+table(iris)
+table(Species)
+summary(Petal.Length)
+rbinom(10,5,0.5)
+pbinom(5,4,0.5)
+dbinom(3,5,0.3)
+rpois(10,0.3)
+rgeom(19,0.4)
+rnbinom(10,4,0.5)
+rhyper(10,20,100,5)
+runif(10,0,1)
+rexp(12,1)
+rcauchy(12,7,0.4)
+rbeta(12,5,6)
+rgamma(12,5,2)
+rf(13,12,13,TRUE)
+qgamma(0.5,5,1)
+qunif(0.2,0,1)
+d=matrix(c(2,1,0,3,0,5,7,6,4),ncol=3,byrow=3)
+d
+#attach not worked for matrix
+det(d)
+rank(d)
+solve(d)
+find("solve")
+trace(d)
+t(d)
+sum(diag(d))
+eigen(d)
+attach(eigen(d))
+values
+vectors
+values(descending)
+sort(eigen(d)$val,decreasing =TRUE)
+sort(eigen(d)$vec,decreasing=TRUE)
+rowMeans(d)
+rowSums(d)
+colMeans(d)
+colSums(d)
+b=matrix(c(0,-1,1,1,2,-1,-1,1,2),ncol=3,byrow=TRUE)
+b
+cbind(d,b)#it will bind two matrices horizontally 
+rbind(d,b)#it will bind two matrices vertically
+d*b
+d%*%b#elements wise multiplication
+e=c(1:5)
+diag(e)
+diag(3)
