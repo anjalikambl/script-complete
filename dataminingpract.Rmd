@@ -1,0 +1,282 @@
+---
+title: "Data Mining"
+author: "Anjali kamble"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r}
+#KNN on iris data
+data=iris
+s=sample(c(TRUE,FALSE),nrow(iris),replace=TRUE,prob=c(0.7,0.3))
+train_d=data[s,]
+test_d=data[!s,]
+dim(train_d)
+library(caret)
+## KNN on traing data
+knn_fit=train(Species~., data = train_d, method = "knn")
+knn_fit
+
+plot(knn_fit)
+test_pred=predict(knn_fit, newdata = test_d)
+test_pred
+b=confusionMatrix(test_pred,test_d$Species)
+b
+
+#NAIVE BAYES classifier
+data=iris
+## loading packages
+
+library(naivebayes)
+library(klaR)
+library(caret)
+## dividing data into testing and training
+x = iris[,-5]
+y = iris$Species
+## fiting Model
+model = train(x,y,'nb',trControl=trainControl(method='cv',number=10))
+summary(model)
+a=predict(model$finalModel,x)
+b=table(predict(model$finalModel,x)$class,y)
+b
+naive_iris=naive_bayes(iris$Species ~ ., data = iris)
+plot(naive_iris)
+
+
+naive_iris=naive_bayes(iris$Species ~ ., data = iris)
+plot(naive_iris)
+
+#decision tree
+
+library("rpart")
+library("rpart.plot")
+data("iris")
+str(iris)
+indexes = sample(150, 110)
+iris_train = iris[indexes,]
+iris_test = iris[-indexes,]
+target = Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width
+tree = rpart(target, data = iris_train, method = "class")
+rpart.plot(tree)
+
+predictions = predict(tree, iris_test)
+
+
+library(party)
+tree = ctree(Species ~ ., data = iris)
+plot(tree, main="Conditional Inference Tree for Iris")
+
+
+
+
+
+#ANN OLS
+n=20
+m=matrix(0,ncol=4,nrow=n)
+cc=matrix(0,ncol=4,nrow=100)
+for(j in 1:100){
+  for(i in 1:n){
+    x1=runif(1,0,1)
+    x2=runif(1,0,1)
+    x3=runif(1,0,1)
+    eps=rnorm(1,0,1)
+    y=1+1.5*x1+2*x2-2.5*x3+eps
+    m[i,]=c(x1,x2,x3,y)
+  }
+  model = lm(m[,4]~m[,1]+m[,2]+m[,3])
+  cc[j,] = c(coef(model)[1],coef(model)[2],coef(model)[3],coef(model)[4])
+}
+cc
+colMeans(cc)
+
+#ANN with identity
+n=20
+m=100
+rss={}
+w1=rep(0,4)
+for(k in 1:m){
+  n=20
+  y={}
+  w=runif(4)
+  n1=1000
+  x0=rep(1,n)
+  x1=runif(n)
+  x2=runif(n)
+  x3=runif(n)
+  e=rnorm(n)
+  d=x0+1.5*x1+2*x2-2.5*x3+e
+  x=cbind(x0,x1,x2,x3)
+  for(j in 1:n1){
+    E=0
+    for(i in 1:n){
+      y[i]=w%*%x[i,]
+      w=w+(0.1)*(d[i]-y[i])*x[i,]
+      E=E+(1/2)*(d[i]-y[i])**2
+    }
+  }
+  w1=w1+w
+  rss[k]=sum((d-y)**2)
+}
+w1/m #### weight
+mean(rss) ### RSS
+
+#ANN with sigmoid
+m=100
+rss={}
+rss1={}
+w1=rep(0,4)
+for(k in 1:m){
+  n=20
+  y={}
+  w=runif(4)
+  n1=1000
+  x0=rep(1,n)
+  x1=runif(n)
+  x2=runif(n)
+  x3=runif(n)
+  e=rnorm(n)
+  d1=x0+1.5*x1+2*x2-2.5*x3+e
+  d=(d1-min(d1))/(max(d1)-min(d1))
+  x=cbind(x0,x1,x2,x3)
+  for(j in 1:n1){
+    E=0
+    for(i in 1:n){
+      net=w%*%x[i,]
+      y[i]=1/(1+exp(-net))
+      w=w+(0.1)*(d[i]-y[i])*(y[i]-y[i]**2)*x[i,]
+      E=E+(1/2)*(d[i]-y[i])**2
+    }
+  }
+  w1=w1+w
+  rss[k]=sum((d-y)**2)
+  y1=y*(max(d1)-min(d1))+min(d1)
+  rss1[k]=sum((d1-y1)**2)
+}
+w1/m
+mean(rss1)
+
+#support vector machine
+
+library(e1071)
+
+data=iris
+sample=sample(c(TRUE, FALSE), nrow(data), replace=TRUE, prob=c(0.7,0.3))
+a=c(3,4,5)
+data_train=data[sample,a] ### only column 3,4,5
+data_test=data[!sample,a]
+model<-svm(Species~.,data = data_train, kernel="linear", cost=0.1, scale=TRUE)
+model
+plot(model,data[,a])
+
+#support vector regression
+boston = MASS::Boston
+set.seed(123)
+indexes = createDataPartition(boston$medv, p = .9, list = F)
+train = boston[indexes, ]
+test = boston[-indexes, ]
+model_reg = svm(medv~., data=train)
+print(model_reg)
+pred = predict(model_reg, test)
+x = 1:length(test$medv)
+plot(x, test$medv, pch=18, col="red")
+lines(x, pred, lwd="1", col="blue")
+mae = MAE(test$medv, pred);mae
+rmse = RMSE(test$medv, pred);rmse
+r2 = R2(test$medv, pred, form = "traditional");r2
+
+data(iris)
+str(iris)
+
+library(ClusterR)
+library(cluster)
+# Removing initial label of Species from original dataset
+iris_1 <- iris[, -5]
+set.seed(2)
+kmeans.re <- kmeans(iris_1, centers = 3, nstart = 20)
+kmeans.re$cluster
+# Confusion Matrix
+cm <- table(iris$Species, kmeans.re$cluster)
+cm
+
+library(MASS)
+data <- Boston
+set.seed(500)
+apply(data, 2, function(x) sum(is.na(x)))
+index <- sample(1 : nrow(data),round(0.75 * nrow(data)))
+train <- data[index, ]
+test <- data[-index, ]
+lm.fit <- glm(medv~., data = train)
+summary(lm.fit)
+pr.lm <- predict(lm.fit, test)
+MSE.lm <- sum((pr.lm - test$medv)^2) / nrow(test)
+maxs <- apply(data, 2, max)
+mins <- apply(data, 2, min)
+scaled <- as.data.frame(scale(data,center = mins,scale = maxs - mins))
+train_ <- scaled[index, ]
+test_ <- scaled[-index, ]
+
+library(neuralnet)
+n <- names(train_)
+f <- as.formula(paste("medv ~",paste(n[!n %in% "medv"],collapse = " + ")))
+nn <- neuralnet(f,data = train_,hidden = c(4, 2),linear.output = T)
+plot(nn)
+# Model Evaluation and visualization
+plot(iris_1[c("Sepal.Length", "Sepal.Width")],col = kmeans.re$cluster,main = "K-means with 3 clusters")
+points(kmeans.re$centers[, c("Sepal.Length", "Sepal.Width")],col = 1:3, pch = 8, cex = 3)
+## Visualizing clusters
+y_kmeans <- kmeans.re$cluster
+clusplot(iris_1[, c("Sepal.Length", "Sepal.Width")],y_kmeans,lines = 0,shade = TRUE,color = TRUE,labels = 2,plotchar = FALSE,span = TRUE,main = paste("Cluster iris"),xlab = 'Sepal.Length',ylab = 'Sepal.Width')
+
+
+
+library(cluster)
+library(Rtsne)
+library(ggplot2)
+data(iris)
+gower_dist = daisy(iris[,-5],metric="gower")
+summary(gower_dist)
+gower_mat = as.matrix(gower_dist)
+sil_width = c(NA)
+for(i in 2:10)
+{
+  pam_fit = pam(gower_dist, diss = TRUE, k=i)
+  sil_width[i] = pam_fit$silinfo$avg.width
+}
+plot(1:10,sil_width,xlab="Number of Clusters",ylab="Silhouette width")
+lines(1:10, sil_width)
+pam_fit = pam(gower_dist, diss=TRUE, k=3)
+iris$cluster = pam_fit$clustering
+tsne_obj = Rtsne(gower_dist,is_distance = TRUE)
+iris_plot = data.frame(tsne_obj$Y)
+names(iris_plot) = c("X","Y")
+iris_plot$cluster = as.factor(iris$cluster)
+ggplot(aes(x=X, y=Y), data=iris_plot) + geom_point(aes(color=cluster))
+
+
+#DBSCAN
+# Loading data
+data(iris)
+str(iris)
+# Installing Packages
+
+library(fpc)
+# Remove label form dataset
+iris_1 <- iris[-5]
+# Fitting DBScan clustering Modelto training dataset
+set.seed(220) # Setting seed
+Dbscan_cl <- dbscan(iris_1, eps = 0.45, MinPts = 5)
+Dbscan_cl$cluster
+table(Dbscan_cl$cluster, iris$Species)
+plot(Dbscan_cl, iris_1, main = "Petal Width vs Sepal Length")
+
+#CLARA
+library(datasets)
+library(cluster) # necessary for PAM, CLARA, Silhouette
+library(ggplot2)
+library(factoextra)
+set.seed(17)
+iris_1 <- iris[-5]
+clarax <- clara(iris_1, 3, samples=100)
+fviz_cluster(clarax, stand = FALSE, geom = "point",pointsize = 1)
+```
+
